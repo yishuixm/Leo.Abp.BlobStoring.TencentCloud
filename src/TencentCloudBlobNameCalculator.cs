@@ -19,8 +19,8 @@ namespace Volo.Abp.BlobStoring.TencentCloud
         public virtual string Calculate(BlobProviderArgs args)
         {
             return CurrentTenant.Id == null
-                ? $"host/{args.BlobName}"
-                : $"tenants/{CurrentTenant.Id.Value:D}/{args.BlobName}";
+                ? $"host/{args.ContainerName}/{args.BlobName}"
+                : $"tenants/{CurrentTenant.Id.Value:D}/{args.ContainerName}/{args.BlobName}";
         }
     }
 }

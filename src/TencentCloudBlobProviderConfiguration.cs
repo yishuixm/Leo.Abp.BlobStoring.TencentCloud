@@ -55,6 +55,12 @@ namespace Volo.Abp.BlobStoring.TencentCloud
             set => _containerConfiguration.SetConfiguration(TencentCloudBlobProviderConfigurationNames.KeyDurationSecond, value);
         }
 
+        public string BucketName
+        {
+            get => _containerConfiguration.GetConfigurationOrDefault<string>(TencentCloudBlobProviderConfigurationNames.BucketName);
+            set => _containerConfiguration.SetConfiguration(TencentCloudBlobProviderConfigurationNames.BucketName, value);
+        }
+
         public string ContainerName
         {
             get => _containerConfiguration.GetConfigurationOrDefault<string>(TencentCloudBlobProviderConfigurationNames.ContainerName);

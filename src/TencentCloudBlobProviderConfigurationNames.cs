@@ -6,6 +6,7 @@ namespace Volo.Abp.BlobStoring.TencentCloud
 {
     public static class TencentCloudBlobProviderConfigurationNames
     {
+        public const string BucketName = "TencentCloud.BucketName";
         public const string ContainerName = "TencentCloud.ContainerName";
         public const string CreateContainerIfNotExists = "TencentCloud.CreateContainerIfNotExists";
 

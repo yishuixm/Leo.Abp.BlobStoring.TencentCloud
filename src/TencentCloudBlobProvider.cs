@@ -28,7 +28,7 @@ namespace Volo.Abp.BlobStoring.TencentCloud
             if (!args.OverrideExisting && await BlobExistsAsync(args, blobName))
             {
                 throw new BlobAlreadyExistsException(
-                    $"Saving BLOB '{args.BlobName}' does already exists in the container '{GetContainerName(args)}'! Set {nameof(args.OverrideExisting)} if it should be overwritten.");
+                    $"Saving BLOB '{args.BlobName}' does already exists in the bucket '{GetBucketName(args)}'! Set {nameof(args.OverrideExisting)} if it should be overwritten.");
             }
 
             if (configuration.CreateContainerIfNotExists)
@@ -36,13 +36,13 @@ namespace Volo.Abp.BlobStoring.TencentCloud
                 await CreateContainerIfNotExistsAsync(args);
             }
 
-            await client.UploadObjectAsync(GetContainerName(args), blobName, args.BlobStream);
+            await client.UploadObjectAsync(GetBucketName(args), blobName, args.BlobStream);
         }
 
         public override async Task<bool> DeleteAsync(BlobProviderDeleteArgs args)
         {
             var blobName = TencentCloudBlobNameCalculator.Calculate(args);
-            var containerName = GetContainerName(args);
+            var bucketName = GetBucketName(args);
             var client = GetClient(args);
 
             if (!await BlobExistsAsync(args, blobName))
@@ -50,7 +50,7 @@ namespace Volo.Abp.BlobStoring.TencentCloud
                 return false;
             }
 
-            await client.DeleteObjectAsync(containerName, blobName);
+            await client.DeleteObjectAsync(bucketName, blobName);
 
             return true;
         }
@@ -63,15 +63,15 @@ namespace Volo.Abp.BlobStoring.TencentCloud
         public override async Task<Stream> GetOrNullAsync(BlobProviderGetArgs args)
         {
             var blobName = TencentCloudBlobNameCalculator.Calculate(args);
-            var containerName = GetContainerName(args);
+            var bucketName = GetBucketName(args);
             var client = GetClient(args);
 
-            if (!await client.CheckObjectIsExistAsync(containerName, blobName))
+            if (!await client.CheckObjectIsExistAsync(bucketName, blobName))
             {
                 return null;
             }
 
-            return await client.DownloadObjectAsync(containerName, blobName);
+            return await client.DownloadObjectAsync(bucketName, blobName);
         }
 
         #region Base
@@ -89,31 +89,29 @@ namespace Volo.Abp.BlobStoring.TencentCloud
                 keyDurationSecond: configuration.KeyDurationSecond));
         }
 
-        protected virtual string GetContainerName(BlobProviderArgs args)
+        protected virtual string GetBucketName(BlobProviderArgs args)
         {
             var configuration = args.Configuration.GetTencentCloudBlobProviderConfiguration();
-            return configuration.ContainerName.IsNullOrWhiteSpace()
-                ? args.ContainerName
-                : $"{configuration.ContainerName}-{configuration.AppId}";
+            return $"{configuration.BucketName}-{configuration.AppId}";
         }
 
         protected virtual async Task<bool> BlobExistsAsync(BlobProviderArgs args, string blobName)
         {
             var client = GetClient(args);
-            var containerName = GetContainerName(args);
+            var bucketName = GetBucketName(args);
 
-            return await client.CheckBucketIsExistAsync(containerName) &&
-                   await client.CheckObjectIsExistAsync(containerName, blobName);
+            return await client.CheckBucketIsExistAsync(bucketName) &&
+                   await client.CheckObjectIsExistAsync(bucketName, blobName);
         }
 
         protected virtual async Task CreateContainerIfNotExistsAsync(BlobProviderArgs args)
         {
             var client = GetClient(args);
-            var containerName = GetContainerName(args);
+            var bucketName = GetBucketName(args);
 
-            if (!await client.CheckBucketIsExistAsync(containerName))
+            if (!await client.CheckBucketIsExistAsync(bucketName))
             {
-                await client.CreateBucketAsync(containerName);
+                await client.CreateBucketAsync(bucketName);
             }
         }
         #endregion

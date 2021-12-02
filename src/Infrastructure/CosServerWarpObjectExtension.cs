@@ -21,9 +21,9 @@ namespace Volo.Abp.BlobStoring.TencentCloud.Infrastructure
 
                 return result.IsSuccessful();
             }
-            catch (CosServerException exception)
+            catch (CosServerException serverEx)
             {
-                if (exception.statusCode == 404)
+                if (serverEx.statusCode == 404)
                 {
                     return false;
                 }
