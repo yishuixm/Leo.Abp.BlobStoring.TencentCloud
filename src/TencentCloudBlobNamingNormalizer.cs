@@ -2,7 +2,7 @@
 using Volo.Abp.BlobStoring;
 using Volo.Abp.DependencyInjection;
 
-namespace Volo.Abp.BlobStoring.TencentCloud
+namespace Leo.Abp.BlobStoring.TencentCloud
 {
     public class TencentCloudBlobNamingNormalizer : IBlobNamingNormalizer, ITransientDependency
     {

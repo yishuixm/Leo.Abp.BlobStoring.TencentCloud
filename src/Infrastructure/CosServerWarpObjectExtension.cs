@@ -9,7 +9,7 @@ using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Volo.Abp.BlobStoring.TencentCloud.Infrastructure
+namespace Leo.Abp.BlobStoring.TencentCloud.Infrastructure
 {
     public static class CosServerWarpObjectExtension
     {

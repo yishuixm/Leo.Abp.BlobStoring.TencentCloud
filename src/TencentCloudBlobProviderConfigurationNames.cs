@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Volo.Abp.BlobStoring.TencentCloud
+namespace Leo.Abp.BlobStoring.TencentCloud
 {
     public static class TencentCloudBlobProviderConfigurationNames
     {

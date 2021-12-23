@@ -5,7 +5,7 @@ using Volo.Abp.BlobStoring;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.MultiTenancy;
 
-namespace Volo.Abp.BlobStoring.TencentCloud
+namespace Leo.Abp.BlobStoring.TencentCloud
 {
     public class TencentCloudBlobNameCalculator : ITencentCloudBlobNameCalculator, ITransientDependency
     {

@@ -5,10 +5,10 @@ using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using Volo.Abp.BlobStoring;
-using Volo.Abp.BlobStoring.TencentCloud.Infrastructure;
+using Leo.Abp.BlobStoring.TencentCloud.Infrastructure;
 using Volo.Abp.DependencyInjection;
 
-namespace Volo.Abp.BlobStoring.TencentCloud
+namespace Leo.Abp.BlobStoring.TencentCloud
 {
     public class TencentCloudBlobProvider : BlobProviderBase, ITransientDependency
     {

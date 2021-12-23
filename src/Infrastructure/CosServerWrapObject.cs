@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace Volo.Abp.BlobStoring.TencentCloud.Infrastructure
+namespace Leo.Abp.BlobStoring.TencentCloud.Infrastructure
 {
     public class CosServerWrapObject
     {

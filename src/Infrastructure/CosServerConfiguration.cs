@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Volo.Abp.BlobStoring.TencentCloud.Infrastructure
+namespace Leo.Abp.BlobStoring.TencentCloud.Infrastructure
 {
     public class CosServerConfiguration
     {
